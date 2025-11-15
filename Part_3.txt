@@ -1,0 +1,80 @@
+======================================================================
+PART 3: COLLECTION STATISTICS
+======================================================================
+
+1. Top 10 Terms with Highest Document Frequency
+----------------------------------------------------------------------
+ 1. 'the' - appears in 20522 documents (99.0%)
+ 2. 'of' - appears in 20173 documents (97.3%)
+ 3. 'in' - appears in 19976 documents (96.4%)
+ 4. 'a' - appears in 19948 documents (96.2%)
+ 5. 'and' - appears in 19895 documents (96.0%)
+ 6. 'to' - appears in 19770 documents (95.4%)
+ 7. 'said' - appears in 18279 documents (88.2%)
+ 8. 'for' - appears in 18121 documents (87.4%)
+ 9. 'on' - appears in 17601 documents (84.9%)
+10. 'that' - appears in 16880 documents (81.4%)
+
+
+2. Top 10 Terms with Lowest Document Frequency
+----------------------------------------------------------------------
+ 1. 'luu' - appears in 1 document(s)
+ 2. 'australiavietnam' - appears in 1 document(s)
+ 3. 'fieldgrade' - appears in 1 document(s)
+ 4. 'nghi' - appears in 1 document(s)
+ 5. 'excabinet' - appears in 1 document(s)
+ 6. 'vinh' - appears in 1 document(s)
+ 7. 'orren' - appears in 1 document(s)
+ 8. 'wbz' - appears in 1 document(s)
+ 9. 'icepicks' - appears in 1 document(s)
+10. 'radelats' - appears in 1 document(s)
+
+
+3. Characteristics Comparison
+----------------------------------------------------------------------
+HIGH FREQUENCY TERMS (Top 10):
+- These are mostly common English words (stop words) like 'the', 'a', 'of'
+- They appear in almost every document (80-99% of documents)
+- They don't carry much meaning for search because they're so common
+- These words are usually removed in real search engines (stop word removal)
+- Examples: articles (the, a), prepositions (of, in, to), pronouns (he, it)
+
+LOW FREQUENCY TERMS (Bottom 10):
+- These are very specific or rare words
+- They appear in only 1 document each
+- Could be: proper names, technical terms, typos, or very specialized words
+- These are very discriminative - if you search for them, you find specific docs
+- Good for precise searches but not useful for general queries
+
+
+4. Terms with Similar Frequencies Appearing in Same Documents
+----------------------------------------------------------------------
+TERM 1: 'zurich'
+  Document Frequency: 158 documents
+
+TERM 2: 'francs'
+  Document Frequency: 159 documents
+
+SHARED DOCUMENTS: 139 documents (both terms appear together)
+  Overlap percentage: 88.0%
+
+First 10 shared document IDs:
+  - AP880212-0064 (ID: 64)
+  - AP880212-0130 (ID: 130)
+  - AP880212-0149 (ID: 149)
+  - AP880215-0062 (ID: 539)
+  - AP880215-0244 (ID: 721)
+  - AP880216-0057 (ID: 787)
+  - AP880216-0225 (ID: 955)
+  - AP880217-0064 (ID: 1029)
+  - AP880217-0289 (ID: 1254)
+  - AP880218-0067 (ID: 1333)
+
+HOW THESE TERMS WERE FOUND:
+- Built a Python script to search through terms with moderate frequency (50-200 documents)
+- This range excludes very common words and very rare words
+- Compared pairs of terms with similar document frequencies (within 10%)
+- Selected the pair with highest document overlap (at least 30%)
+- These terms likely appear in similar contexts or related topics
+
+======================================================================

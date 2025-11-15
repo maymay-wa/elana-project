@@ -11,7 +11,7 @@ class InvertedIndex:
     # This class creates an index so we can search documents faster
     # It stores words and which documents they appear in
     
-    def __init__(self, corpus_path):
+    def __init__(self, text_path):
         # Initialize all the variables we need
         self.index = {}  # stores words and their document lists
         self.doc_id_to_docno = {}  # converts numbers to document names
@@ -19,7 +19,7 @@ class InvertedIndex:
         self.num_documents = 0  # keeps track of how many documents we have
         
         # Build the index when we create the object
-        self._build_index(corpus_path)
+        self._build_index(text_path)
     
     def _load_documents(self, folder_path):
         # This function reads all the files from a folder and combines them into one big string
@@ -70,12 +70,12 @@ class InvertedIndex:
         self.num_documents = len(self.doc_id_to_docno)
         return doc_text_map
     
-    def _build_index(self, corpus_path):
+    def _build_index(self, text_path):
         # This is the main function that builds the index
         # It reads all the files and creates a dictionary of words -> document lists
         
         # Step 1: Read all the files
-        all_content = self._load_documents(corpus_path)
+        all_content = self._load_documents(text_path)
         
         # Step 2: Break them into documents and get the text
         doc_text_map = self._parse_documents(all_content)
@@ -116,26 +116,6 @@ class InvertedIndex:
             docno = self.doc_id_to_docno.get(doc_id)
             result += f" -> {doc_id} ({docno})"
         print(f"'{term}'{result}")
-    
-    def get_statistics(self):
-        # Returns some stats about the index (how many words, documents, etc.)
-        total_words = len(self.index)
-        total_docs = self.num_documents
-        
-        # Calculate average - how many documents does each word appear in on average
-        if total_words > 0:
-            total_postings = 0
-            for doc_list in self.index.values():
-                total_postings += len(doc_list)
-            avg = total_postings / total_words
-        else:
-            avg = 0
-        
-        return {
-            'num_terms': total_words,
-            'num_documents': total_docs,
-            'avg_postings_length': avg
-        }
 
 
 def main():
@@ -145,14 +125,7 @@ def main():
     
     # Build the index from the folder of documents
     index = InvertedIndex("AP_Coll_Parsed_9")
-    
-    # Print out some stats
-    stats = index.get_statistics()
-    print(f"\nIndex Statistics:")
-    print(f"  Total documents: {stats['num_documents']}")
-    print(f"  Total unique terms: {stats['num_terms']}")
-    print(f"  Average postings list length: {stats['avg_postings_length']:.2f}")
-    
+
     # Show some example words and their document lists
     print(f"\n{'=' * 60}")
     print("Sample Inverted Index Entries:")
