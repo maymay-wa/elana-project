@@ -3,8 +3,9 @@
 # An inverted index is like the index at the back of a textbook - it tells you which documents have which words
 
 import re
-from pathlib import Path
+import sys
 from collections import defaultdict
+from pathlib import Path
 
 
 class InvertedIndex:
@@ -22,21 +23,28 @@ class InvertedIndex:
         self._build_index(text_path)
     
     def _load_documents(self, folder_path):
-        # This function reads all the files from a folder and combines them into one big string
-        all_text = ""
+        # This function reads all the files from a folder (and its subfolders)
+        # and combines them into one big string, efficiently.
         folder = Path(folder_path)
-        
-        # Go through each file in order
-        for file_path in sorted(folder.iterdir()):
+
+        texts = []      # collect each file's text here
+        file_count = 0  # just for info
+
+        # If you changed this earlier, keep using rglob to go through ALL subfolders:
+        for file_path in sorted(folder.rglob("*")):
             if file_path.is_file():
+                file_count += 1
                 try:
-                    # Try to read the file normally
-                    all_text += file_path.read_text(encoding='utf-8')
+                    text = file_path.read_text(encoding="utf-8")
                 except UnicodeDecodeError:
-                    # If that doesn't work, try a different encoding
-                    all_text += file_path.read_text(encoding='latin-1')
-        
-        return all_text
+                    text = file_path.read_text(encoding="latin-1")
+                texts.append(text)
+
+        print(f"Loaded {file_count} files from {folder}")
+
+        # Join once at the end – MUCH faster than += in a loop
+        return "".join(texts)
+
     
     def _parse_documents(self, all_content):
         # This function pulls out the important parts from each document
@@ -74,13 +82,13 @@ class InvertedIndex:
         # This is the main function that builds the index
         # It reads all the files and creates a dictionary of words -> document lists
         
-        # Step 1: Read all the files
+        # Read all the files
         all_content = self._load_documents(text_path)
         
-        # Step 2: Break them into documents and get the text
+        # Break them into documents and get the text
         doc_text_map = self._parse_documents(all_content)
         
-        # Step 3: Build the index (word -> list of documents)
+        # Build the index (word -> list of documents)
         temp_index = defaultdict(list)
         
         # Go through each document
@@ -123,8 +131,20 @@ def main():
     print("Building Inverted Index for AP Collection...")
     print("=" * 60)
     
-    # Build the index from the folder of documents
-    index = InvertedIndex("AP_Coll_Parsed_9")
+    # If user gives a folder path when running the script, use that
+    if len(sys.argv) > 1:
+        data_path = Path(sys.argv[1])
+
+    # Otherwise, assume data-20251119 is in the SAME folder as indexBuilder.py
+    else:
+        data_path = Path(__file__).resolve().parent / "data-20251119"
+
+    if not data_path.exists():
+        print(f"Error: data folder '{data_path}' not found.")
+        return
+
+    index = InvertedIndex(data_path)
+
 
     # Show some example words and their document lists
     print(f"\n{'=' * 60}")

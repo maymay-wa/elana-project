@@ -3,7 +3,7 @@
 # Boolean search means using AND, OR, and NOT to combine search terms
 
 import re
-from IndexBuilder import InvertedIndex
+from indexBuilder import InvertedIndex
 
 
 class BooleanRetrieval:
@@ -182,27 +182,36 @@ class BooleanRetrieval:
             print(f"Error processing queries: {e}")
 
 
+
+# Move main() outside the class
 def main():
-    # Main function to test the Boolean retrieval system
     print("Building Index...")
-    index = InvertedIndex("AP_Coll_Parsed_9")
-    print("Index built!")
+
+    # Use the same folder as part 1
+    from pathlib import Path
+    import sys
     
+    if len(sys.argv) > 1:
+        data_path = Path(sys.argv[1])
+    else:
+        data_path = Path(__file__).resolve().parent / "data-20251119"
+
+    index = InvertedIndex(data_path)
+    print("Index built!")
+
     print("\nInitializing Boolean Retrieval System...")
     retrieval = BooleanRetrieval(index)
-    
-    # Process queries from file
+
     print("\nProcessing queries from BooleanQueries.txt (Polish notation)...")
     retrieval.process_queries_from_file("BooleanQueries.txt", "Part_2.txt")
-    
-    # Show a sample query in Polish notation
-    print("\nSample query: 'iran israel AND' (Polish notation)")
+
+    print("\nSample query: 'iran israel AND'")
     doc_ids = retrieval.parse_and_execute_query("iran israel AND")
     print(f"Found {len(doc_ids)} matching documents")
-    
-    # Show first few results
+
     docnos = retrieval.convert_to_docnos(doc_ids[:5])
     print(f"First 5 results: {' '.join(docnos)}")
+
 
 
 if __name__ == "__main__":

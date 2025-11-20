@@ -2,7 +2,7 @@
 # This program analyzes the collection statistics from the inverted index
 # It finds top/bottom terms by document frequency and analyzes their characteristics
 
-from IndexBuilder import InvertedIndex
+from indexBuilder import InvertedIndex
 
 
 class CollectionStatistics:

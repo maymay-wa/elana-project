@@ -18,15 +18,15 @@ PART 3: COLLECTION STATISTICS
 
 2. Top 10 Terms with Lowest Document Frequency
 ----------------------------------------------------------------------
- 1. 'luu' - appears in 1 document(s)
- 2. 'australiavietnam' - appears in 1 document(s)
- 3. 'fieldgrade' - appears in 1 document(s)
- 4. 'nghi' - appears in 1 document(s)
- 5. 'excabinet' - appears in 1 document(s)
- 6. 'vinh' - appears in 1 document(s)
- 7. 'orren' - appears in 1 document(s)
- 8. 'wbz' - appears in 1 document(s)
- 9. 'icepicks' - appears in 1 document(s)
+ 1. 'fieldgrade' - appears in 1 document(s)
+ 2. 'nghi' - appears in 1 document(s)
+ 3. 'vinh' - appears in 1 document(s)
+ 4. 'luu' - appears in 1 document(s)
+ 5. 'australiavietnam' - appears in 1 document(s)
+ 6. 'excabinet' - appears in 1 document(s)
+ 7. 'wbz' - appears in 1 document(s)
+ 8. 'orren' - appears in 1 document(s)
+ 9. 'radelat' - appears in 1 document(s)
 10. 'radelats' - appears in 1 document(s)
 
 
@@ -71,7 +71,7 @@ First 10 shared document IDs:
   - AP880218-0067 (ID: 1333)
 
 HOW THESE TERMS WERE FOUND:
-- Built a Python script to search through terms with moderate frequency (50-200 documents)
+- Searched through terms with moderate frequency (50-200 documents)
 - This range excludes very common words and very rare words
 - Compared pairs of terms with similar document frequencies (within 10%)
 - Selected the pair with highest document overlap (at least 30%)
